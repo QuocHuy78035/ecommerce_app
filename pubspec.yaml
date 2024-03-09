@@ -84,11 +84,10 @@ flutter:
   fonts:
      - family: Brand-Bold
        fonts:
-         - asset: assets/fonts/GemunuLibre-Bold
+         - asset: assets/fonts/GemunuLibre-Bold.ttf
      - family: Semi-Bold
        fonts:
-         - asset: assets/fonts/GemunuLibre-SemiBold
-         - asset: fonts/TrajanPro_Bold.ttf
+         - asset: assets/fonts/GemunuLibre-SemiBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
