@@ -1,8 +1,13 @@
 allprojects {
+    ext.kotlin_version = '1.9.20'
     repositories {
         google()
         mavenCentral()
     }
+}
+
+buildscript {
+    ext.kotlin_version = '1.9.20'
 }
 
 rootProject.buildDir = "../build"
