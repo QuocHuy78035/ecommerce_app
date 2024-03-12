@@ -20,16 +20,18 @@ class AuthController {
           password: password,
         );
         res = "Create account success";
-        
+
         //save to firestore
-        await _firebaseFirestore.collection("buyers").doc(userCredential.user?.uid).set({
-          'email' : email,
-          'fullName' : fullName,
-          'phoneNumber' : phoneNumber,
-          'buyerId' : userCredential.user?.uid,
-          'address' : ''
+        await _firebaseFirestore
+            .collection("buyers")
+            .doc(userCredential.user?.uid)
+            .set({
+          'email': email,
+          'fullName': fullName,
+          'phoneNumber': phoneNumber,
+          'buyerId': userCredential.user?.uid,
+          'address': ''
         });
-        
       } else {
         res = "Please fill all fields";
       }
@@ -37,5 +39,22 @@ class AuthController {
       print("Fail $e");
     }
     return res;
+  }
+
+  Future<String> loginUser(String email, String pass) async {
+    String res = "Some error";
+    try {
+      if (email.isNotEmpty && pass.isNotEmpty) {
+        await _firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: pass,
+        );
+        res = "Login Success";
+      }else{
+        res = "Please fill all field";
+      }
+    } catch (e) {
+      print(e.toString());
+    }return res;
   }
 }

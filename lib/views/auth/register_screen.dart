@@ -1,5 +1,6 @@
 import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
+import 'package:ecomerce_app/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -19,35 +20,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isLoading = false;
 
   signupUser() async {
-   if(_key.currentState!.validate()){
-     setState(() {
-       isLoading = true;
-     });
-     String res = await authController.signUpUser(
-       email,
-       fullName,
-       phoneNumber,
-       password,
-     ).whenComplete((){
-       setState(() {
-         isLoading = false;
-       });
-     });
-     if (res != "Create account success") {
-       setState(() {
-         _key.currentState?.reset();
-       });
-       return showSnackBar(context, "Register Failed!");
-     } else {
-       setState(() {
-         _key.currentState?.reset();
-       });
-       return showSnackBar(context, "Register Successfully!");
-     }
-   }else{
-
-     return showSnackBar(context, "Please fill all field");
-   }
+    if (_key.currentState!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      String res = await authController
+          .signUpUser(
+        email,
+        fullName,
+        phoneNumber,
+        password,
+      )
+          .whenComplete(() {
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      });
+      if (res != "Create account success") {
+        setState(() {
+          _key.currentState?.reset();
+        });
+        return showSnackBar(context, "Register Failed!");
+      } else {
+        setState(() {
+          _key.currentState?.reset();
+        });
+        return showSnackBar(context, "Register Successfully!");
+      }
+    } else {
+      return showSnackBar(context, "Please fill all field");
+    }
   }
 
   @override
@@ -67,9 +75,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   "Create Customer's Account",
                   style: TextStyle(fontSize: 20),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.yellow.shade900,
-                  radius: 64,
+                Stack(
+                  children: [
+                    const Positioned(child: Icon(Icons.image)),
+                    CircleAvatar(
+                      backgroundColor: Colors.yellow.shade900,
+                      radius: 64,
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,
@@ -153,15 +166,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () {
                       signupUser();
                     },
-                    child: isLoading == false ? const Text(
-                      "REGISTER",
-                      style: TextStyle(
-                        letterSpacing: 4,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ) : const CircularProgressIndicator(),
+                    child: isLoading == false
+                        ? const Text(
+                            "REGISTER",
+                            style: TextStyle(
+                              letterSpacing: 4,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const CircularProgressIndicator(),
                   ),
                 )
               ],
