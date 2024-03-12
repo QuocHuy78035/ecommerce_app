@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<String> signUpUser(String email, String fullName, String phoneNumber,
       String password) async {
@@ -18,11 +20,22 @@ class AuthController {
           password: password,
         );
         res = "Create account success";
+        
+        //save to firestore
+        await _firebaseFirestore.collection("buyers").doc(userCredential.user?.uid).set({
+          'email' : email,
+          'fullName' : fullName,
+          'phoneNumber' : phoneNumber,
+          'buyerId' : userCredential.user?.uid,
+          'address' : ''
+        });
+        
       } else {
         res = "Please fill all fields";
       }
     } catch (e) {
       print("Fail $e");
-    }return res;
+    }
+    return res;
   }
 }
