@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -57,4 +58,5 @@ class AuthController {
       print(e.toString());
     }return res;
   }
+
 }

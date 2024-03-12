@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
 import 'package:ecomerce_app/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,6 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late String phoneNumber = '';
   late String password = '';
   bool isLoading = false;
+  File? selectedImage;
 
   signupUser() async {
     if (_key.currentState!.validate()) {
@@ -58,6 +62,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  Future pickGalleryImage() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      selectedImage = File(returnedImage?.path ?? "");
+    });
+  }
+
+  Future pickCameraImage() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      selectedImage = File(returnedImage?.path ?? "");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,11 +97,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Stack(
                   children: [
-                    const Positioned(child: Icon(Icons.image)),
-                    CircleAvatar(
-                      backgroundColor: Colors.yellow.shade900,
-                      radius: 64,
-                    ),
+                    selectedImage == null
+                        ? CircleAvatar(
+                            backgroundColor: Colors.yellow.shade900,
+                            radius: 64,
+                            backgroundImage: const NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/ddnangcao-project"
+                              ".appspot.com/o/users%2Fdefault.png?"
+                              "alt=media&token=25343bf9-3975-4f6a-98ae-bec6f469c2b2",
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundImage: FileImage(
+                              selectedImage!,
+                            ),
+                          ),
+                    Positioned(
+                        bottom: 20,
+                        right: 20,
+                        child: GestureDetector(
+                          onTap: () {
+                            pickCameraImage();
+                          },
+                          child: const Icon(
+                            Icons.image,
+                            color: Colors.black,
+                          ),
+                        )),
                   ],
                 ),
                 const SizedBox(
@@ -178,6 +221,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )
                         : const CircularProgressIndicator(),
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text(
+                      "Already Have account?",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.yellow.shade900,
+                          ),
+                        ))
+                  ],
                 )
               ],
             ),
