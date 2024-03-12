@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/views/auth/register_screen.dart';
 import 'package:ecomerce_app/views/buyer/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainScreen(),
+      home: const RegisterScreen(),
     );
   }
 }
