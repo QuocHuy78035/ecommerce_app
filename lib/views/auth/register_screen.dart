@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'dart:typed_data';
 import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
 import 'package:ecomerce_app/views/auth/login_screen.dart';
@@ -24,6 +25,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   File? selectedImage;
 
   signupUser() async {
+    List<int> imageBytes = await selectedImage!.readAsBytes();
+    Uint8List imageData = Uint8List.fromList(imageBytes);
     if (_key.currentState!.validate()) {
       setState(() {
         isLoading = true;
@@ -34,17 +37,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         fullName,
         phoneNumber,
         password,
+          imageData
       )
           .whenComplete(() {
         setState(() {
           isLoading = false;
         });
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
       });
       if (res != "Create account success") {
         setState(() {
@@ -55,6 +53,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           _key.currentState?.reset();
         });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
         return showSnackBar(context, "Register Successfully!");
       }
     } else {
@@ -77,6 +81,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       selectedImage = File(returnedImage?.path ?? "");
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         right: 20,
                         child: GestureDetector(
                           onTap: () {
-                            pickCameraImage();
+                            pickGalleryImage();
                           },
                           child: const Icon(
                             Icons.image,
@@ -230,21 +236,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.yellow.shade900,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
                           ),
-                        ))
+                        );
+                      },
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.yellow.shade900,
+                        ),
+                      ),
+                    )
                   ],
                 )
               ],
