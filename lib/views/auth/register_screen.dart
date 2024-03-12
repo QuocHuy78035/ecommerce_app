@@ -1,7 +1,26 @@
+import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  final AuthController authController = AuthController();
+  late String email = '';
+  late String fullName = '';
+  late String phoneNumber = '';
+  late String password = '';
+
+  signupUser() async {
+    String res = await authController.signUpUser(
+      email,
+      fullName,
+      phoneNumber,
+      password,
+    );
+    if(res != "Create account success"){
+      print(res);
+    }else{
+      print("Suc");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +45,37 @@ class RegisterScreen extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                onChanged: (value){
+                  email = value;
+                },
                 decoration: const InputDecoration(hintText: "Enter Email"),
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                onChanged: (value){
+                  fullName = value;
+                },
                 decoration: const InputDecoration(hintText: "Enter Full Name"),
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
-                decoration: const InputDecoration(hintText: "Enter Phone Number"),
+                onChanged: (value){
+                  phoneNumber = value;
+                },
+                decoration:
+                    const InputDecoration(hintText: "Enter Phone Number"),
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                onChanged: (value){
+                  password = value;
+                },
                 decoration: const InputDecoration(hintText: "Enter Password"),
               ),
               const SizedBox(
@@ -54,12 +86,12 @@ class RegisterScreen extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow.shade900,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  onPressed: () {},
+                      backgroundColor: Colors.yellow.shade900,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  onPressed: () {
+                    signupUser();
+                  },
                   child: const Text(
                     "REGISTER",
                     style: TextStyle(

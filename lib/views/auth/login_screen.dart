@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/views/auth/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -60,15 +61,23 @@ class LoginScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text("Don't have account?", style: TextStyle(fontSize: 16),),
-                const SizedBox(
-                  width: 5,
+                const Text(
+                  "Don't have account?",
+                  style: TextStyle(fontSize: 16),
                 ),
-                Text(
-                  "Register",
-                  style: TextStyle(
-                    color: Colors.yellow.shade900,
-                    fontSize: 16
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Register",
+                    style:
+                        TextStyle(color: Colors.yellow.shade900, fontSize: 16),
                   ),
                 )
               ],
