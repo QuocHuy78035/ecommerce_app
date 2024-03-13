@@ -37,34 +37,36 @@ class _BannerWidgetState extends State<BannerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(10),
-        height: 140,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Colors.yellow.shade900,
-            borderRadius: BorderRadius.circular(10)),
-        child: PageView.builder(
-            itemCount: _bannerImage.length,
-            itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: CachedNetworkImage(
-                  imageUrl: "${_bannerImage[index]}",
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => Shimmer(
-                    child: Container(
-                      color: Colors.purple,
-                    ),
-                    duration: Duration(seconds: 3),
-                    interval: Duration(seconds: 5),
-                    color: Colors.white,
-                    colorOpacity: 0,
-                    enabled: true,
-                    direction: ShimmerDirection.fromLBRT(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+      margin: const EdgeInsets.all(10),
+      height: 140,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          color: Colors.yellow.shade900,
+          borderRadius: BorderRadius.circular(10)),
+      child: PageView.builder(
+        itemCount: _bannerImage.length,
+        itemBuilder: (context, index) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: "${_bannerImage[index]}",
+              fit: BoxFit.fill,
+              placeholder: (context, url) => Shimmer(
+                duration: const Duration(seconds: 3),
+                interval: const Duration(seconds: 5),
+                color: Colors.white,
+                colorOpacity: 0,
+                enabled: true,
+                direction: const ShimmerDirection.fromLBRT(),
+                child: Container(
+                  color: Colors.purple,
                 ),
-              );
-            }));
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

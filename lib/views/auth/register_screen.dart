@@ -24,20 +24,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   File? selectedImage;
 
   signupUser() async {
-    List<int> imageBytes = await selectedImage!.readAsBytes();
-    Uint8List imageData = Uint8List.fromList(imageBytes);
+    //List<int> imageBytes = await selectedImage!.readAsBytes();
+    //Uint8List imageData = Uint8List.fromList(imageBytes);
+    Uint8List? imageData = selectedImage?.readAsBytesSync();
     if (_key.currentState!.validate()) {
       setState(() {
         isLoading = true;
       });
       String res = await authController
-          .signUpUser(
-        email,
-        fullName,
-        phoneNumber,
-        password,
-          imageData
-      )
+          .signUpUser(email, fullName, phoneNumber, password, imageData!)
           .whenComplete(() {
         setState(() {
           isLoading = false;
@@ -81,8 +76,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,17 +112,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                     Positioned(
-                        bottom: 20,
-                        right: 20,
-                        child: GestureDetector(
-                          onTap: () {
-                            pickGalleryImage();
-                          },
-                          child: const Icon(
-                            Icons.image,
-                            color: Colors.black,
-                          ),
-                        )),
+                      bottom: 20,
+                      right: 20,
+                      child: GestureDetector(
+                        onTap: () {
+                          pickCameraImage();
+                        },
+                        child: const Icon(
+                          Icons.image,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
