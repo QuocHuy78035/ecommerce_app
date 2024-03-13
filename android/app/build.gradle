@@ -26,7 +26,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.example.ecomerce_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 33
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

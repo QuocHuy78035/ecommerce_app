@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'dart:typed_data';
 import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
