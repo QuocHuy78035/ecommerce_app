@@ -6,14 +6,14 @@ import 'package:ecomerce_app/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class BuyerRegisterScreen extends StatefulWidget {
+  const BuyerRegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<BuyerRegisterScreen> createState() => _BuyerRegisterScreen();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _BuyerRegisterScreen extends State<BuyerRegisterScreen> {
   final AuthController authController = AuthController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   late String email = '';
