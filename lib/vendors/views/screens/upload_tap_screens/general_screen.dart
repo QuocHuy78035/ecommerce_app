@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class GeneralScreen extends StatefulWidget {
+class GeneralScreen extends StatefulWidget{
   const GeneralScreen({super.key});
 
   @override
   State<GeneralScreen> createState() => _GeneralScreenState();
+
 }
 
 class _GeneralScreenState extends State<GeneralScreen> {

@@ -1,8 +1,8 @@
-import 'package:ecomerce_app/buyers/views/buyer/main_screen.dart';
 import 'package:ecomerce_app/providers/product_provider.dart';
 import 'package:ecomerce_app/vendors/views/screens/main_vendor_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MainVendorScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -58,26 +58,27 @@ class _ImageScreenState extends State<ImageScreen> {
                               image: FileImage(_image[index - 1]))),
                     );
             }),
-        TextButton(
-            onPressed: () async {
-              EasyLoading.show(status: "Saving image");
-              for (var img in _image) {
-                Reference ref =
-                    _storage.ref().child("productImage").child(const Uuid().v4());
-                await ref.putFile(img).whenComplete(
-                  () async {
-                    await ref.getDownloadURL().then((value) {
-                      setState(() {
-                        _imageUrl.add(value);
-                        productProvider.getFormData(imageUrlList: _imageUrl);
-                        EasyLoading.dismiss();
-                      });
+        _image.isNotEmpty ? TextButton(
+          onPressed: () async {
+            EasyLoading.show(status: "Saving image");
+            for (var img in _image) {
+              Reference ref =
+                  _storage.ref().child("productImage").child(const Uuid().v4());
+              await ref.putFile(img).whenComplete(
+                () async {
+                  await ref.getDownloadURL().then((value) {
+                    setState(() {
+                      _imageUrl.add(value);
+                      productProvider.getFormData(imageUrlList: _imageUrl);
+                      EasyLoading.dismiss();
                     });
-                  },
-                );
-              }
-            },
-            child: const Text("Upload"))
+                  });
+                },
+              );
+            }
+          },
+          child: const Text("Upload"),
+        ) : Container()
       ],
     );
   }
