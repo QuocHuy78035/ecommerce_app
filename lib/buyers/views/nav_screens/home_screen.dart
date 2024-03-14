@@ -1,7 +1,7 @@
-import 'package:ecomerce_app/views/nav_screens/widgets/banner_widget.dart';
-import 'package:ecomerce_app/views/nav_screens/widgets/category_text.dart';
-import 'package:ecomerce_app/views/nav_screens/widgets/search_input_widget.dart';
-import 'package:ecomerce_app/views/nav_screens/widgets/welcome_text.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/banner_widget.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/category_text.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/search_input_widget.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/welcome_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

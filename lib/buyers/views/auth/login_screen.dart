@@ -1,9 +1,9 @@
-import 'package:ecomerce_app/controllers/auth_controller.dart';
-import 'package:ecomerce_app/views/auth/register_screen.dart';
-import 'package:ecomerce_app/views/buyer/main_screen.dart';
+import 'package:ecomerce_app/buyers/views/auth/register_screen.dart';
+import 'package:ecomerce_app/buyers/views/buyer/main_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/show_snackbar.dart';
+import '../../../utils/show_snackbar.dart';
+import '../../controllers/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

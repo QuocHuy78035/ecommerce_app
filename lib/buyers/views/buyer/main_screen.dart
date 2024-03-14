@@ -1,11 +1,12 @@
-import 'package:ecomerce_app/views/nav_screens/account_screen.dart';
-import 'package:ecomerce_app/views/nav_screens/cart_screen.dart';
-import 'package:ecomerce_app/views/nav_screens/category_screen.dart';
-import 'package:ecomerce_app/views/nav_screens/home_screen.dart';
-import 'package:ecomerce_app/views/nav_screens/search_screen.dart';
-import 'package:ecomerce_app/views/nav_screens/store_screen.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/account_screen.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/home_screen.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../nav_screens/cart_screen.dart';
+import '../nav_screens/category_screen.dart';
+import '../nav_screens/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
