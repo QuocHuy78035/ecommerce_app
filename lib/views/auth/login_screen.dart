@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
+                          builder: (context) => const BuyerRegisterScreen(),
                         ),
                       );
                     },
