@@ -50,7 +50,8 @@ class _ShippingScreenState extends State<ShippingScreen> {
                 setState(
                   () {
                     _chargeShipping = value!;
-                    productProvider.getFormData(chargeShipping: _chargeShipping);
+                    productProvider.getFormData(
+                        chargeShipping: _chargeShipping);
                   },
                 );
               },
@@ -66,8 +67,10 @@ class _ShippingScreenState extends State<ShippingScreen> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
-              onChanged: (value){
-                productProvider.getFormData(shippingCharge: int.parse(value));
+              onChanged: (value) {
+                productProvider.getFormData(
+                  shippingCharge: int.parse(value),
+                );
               },
               decoration: const InputDecoration(hintText: "Shipping Charge"),
             ),
