@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:ecomerce_app/controllers/auth_controller.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
-import 'package:ecomerce_app/views/auth/login_screen.dart';
+import 'package:ecomerce_app/buyers/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../controllers/auth_controller.dart';
 
 class BuyerRegisterScreen extends StatefulWidget {
   const BuyerRegisterScreen({super.key});

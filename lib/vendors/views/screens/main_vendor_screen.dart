@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/vendors/views/screens/vendor_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,7 +15,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
 
   final List<Widget> _pages = [
     Text("EARNINGS"),
-    Text("UPLOAD"),
+    VendorUploadScreen(),
     Text("EDIT"),
     Text("ORDERS"),
     Text("LOGOUT"),
