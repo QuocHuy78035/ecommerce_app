@@ -58,6 +58,7 @@ class VendorUploadScreen extends StatelessWidget {
             print("${_productProvider.productData['quantity']}");
             print("${_productProvider.productData['category']}");
             print("${_productProvider.productData['description']}");
+            print("${_productProvider.productData['imageUrlList']}");
           },
           child: Text("Save"),
         ),
