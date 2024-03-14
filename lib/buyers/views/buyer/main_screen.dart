@@ -8,14 +8,14 @@ import '../nav_screens/cart_screen.dart';
 import '../nav_screens/category_screen.dart';
 import '../nav_screens/search_screen.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainCustomerScreen extends StatefulWidget {
+  const MainCustomerScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainCustomerScreen> createState() => _MainCustomerScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainCustomerScreenState extends State<MainCustomerScreen> {
   int _pageIndex = 0;
 
   final List<Widget> _pages = [
