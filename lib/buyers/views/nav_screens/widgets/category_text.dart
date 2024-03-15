@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/buyers/views/nav_screens/widgets/home_product.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/main_products.dart';
 import 'package:flutter/material.dart';
 
 class CategoryText extends StatefulWidget {
@@ -82,6 +83,8 @@ class _CategoryTextState extends State<CategoryText> {
               );
             },
           ),
+          if(_selectCategory == "")
+            const MainProductScreen(),
           if(_selectCategory != "")
             HomeProductScreen(categoryName: _selectCategory)
         ],
