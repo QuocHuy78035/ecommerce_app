@@ -66,6 +66,7 @@ class _VendorUploadScreenState extends State<VendorUploadScreen> {
           onPressed: () async {
             EasyLoading.show(status: "Uploading...");
             final productId = const Uuid().v4();
+            print("13 ${ _productProvider.productData['imageUrlList']}");
             await _fireStore.collection("products").doc(productId).set({
               'productId': productId,
               'productName': _productProvider.productData['productName'],
