@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/providers/cart_provider.dart';
+import 'package:ecomerce_app/utils/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
@@ -137,18 +138,24 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       ),
       bottomSheet: GestureDetector(
         onTap: () {
-          cartProvider.addProductToCart(
-            widget.productData['productName'],
-            widget.productData['productId'],
-            widget.productData['imageUrl'],
-            1,
-            //widget.productData['quantity'],
-            widget.productData['productPrice'],
-            widget.productData['vendorId'],
-            _selectedSize,
-            widget.productData['scheduleDate'],
-          );
-          print('object');
+          if(_selectedSize == ""){
+            return showSnackBar(context, "Please Select Size");
+          }
+         else{
+            cartProvider.addProductToCart(
+              widget.productData['productName'],
+              widget.productData['productId'],
+              widget.productData['imageUrl'],
+              1,
+              widget.productData['productPrice'],
+              widget.productData['vendorId'],
+              _selectedSize,
+              widget.productData['quantity'],
+              widget.productData['scheduleDate'],
+
+            );
+            print('object');
+          }
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
