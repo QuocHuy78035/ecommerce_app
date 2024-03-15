@@ -18,7 +18,7 @@ class VendorSignIn extends StatelessWidget {
     final GlobalKey<FormState> key = GlobalKey<FormState>();
 
     signInVendor(String email, String pass) async {
-      if (key.currentState != null) {
+      //if (key.currentState?.validate() != null) {
         String res = await controller.vendorLogin(email, pass);
         if (res == "Success") {
           Navigator.push(context, MaterialPageRoute(builder: (context) => LandingScreen()));
@@ -26,11 +26,11 @@ class VendorSignIn extends StatelessWidget {
         } else {
           return showSnackBar(context, "Login Fail");
         }
-      }
+      //}
     }
     return Scaffold(
       body: Form(
-        key: key,
+        //key: key,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
