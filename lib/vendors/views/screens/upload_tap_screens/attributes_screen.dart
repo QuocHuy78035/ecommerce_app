@@ -57,8 +57,8 @@ class _AttributeScreenState extends State<AttributeScreen> {
                       onPressed: () {
                         setState(() {
                           _sizeList.add(_sizeController.text);
+                          productProvider.getFormData(listSize: _sizeList);
                         });
-                        print(_sizeList);
                       },
                       child: const Text("Add"),
                     )

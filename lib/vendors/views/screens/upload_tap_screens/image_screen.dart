@@ -38,47 +38,55 @@ class _ImageScreenState extends State<ImageScreen> {
     return Column(
       children: [
         GridView.builder(
-            shrinkWrap: true,
-            itemCount: _image.length + 1,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, mainAxisSpacing: 8, crossAxisSpacing: 3 / 3),
-            itemBuilder: (context, index) {
-              return index == 0
-                  ? Center(
-                      child: IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () {
-                          chooseImage();
-                        },
+          shrinkWrap: true,
+          itemCount: _image.length + 1,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, mainAxisSpacing: 8, crossAxisSpacing: 3 / 3),
+          itemBuilder: (context, index) {
+            return index == 0
+                ? Center(
+                    child: IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        chooseImage();
+                      },
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: FileImage(_image[index - 1]),
                       ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: FileImage(_image[index - 1]))),
-                    );
-            }),
-        _image.isNotEmpty ? TextButton(
-          onPressed: () async {
-            EasyLoading.show(status: "Saving image");
-            for (var img in _image) {
-              Reference ref =
-                  _storage.ref().child("productImage").child(const Uuid().v4());
-              await ref.putFile(img).whenComplete(
-                () async {
-                  await ref.getDownloadURL().then((value) {
-                    setState(() {
-                      _imageUrl.add(value);
-                      productProvider.getFormData(imageUrlList: _imageUrl);
-                      EasyLoading.dismiss();
-                    });
-                  });
-                },
-              );
-            }
+                    ),
+                  );
           },
-          child: const Text("Upload"),
-        ) : Container()
+        ),
+        _image.isNotEmpty
+            ? TextButton(
+                onPressed: () async {
+                  EasyLoading.show(status: "Saving image");
+                  for (var img in _image) {
+                    Reference ref = _storage
+                        .ref()
+                        .child("productImage")
+                        .child(const Uuid().v4());
+                    await ref.putFile(img).whenComplete(
+                      () async {
+                        await ref.getDownloadURL().then((value) {
+                          setState(() {
+                            _imageUrl.add(value);
+                            productProvider.getFormData(
+                                imageUrlList: _imageUrl);
+                            EasyLoading.dismiss();
+                          });
+                        });
+                      },
+                    );
+                  }
+                },
+                child: const Text("Upload"),
+              )
+            : Container()
       ],
     );
   }
