@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 
 class DetailProductScreen extends StatefulWidget {
@@ -12,49 +14,149 @@ class DetailProductScreen extends StatefulWidget {
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
   int _imageIndex = 0;
+
+  format(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  String _selectedSize = '';
+  List<Color> bgColor = [Colors.white];
+
   @override
   Widget build(BuildContext context) {
+    Timestamp timestamp = widget.productData['scheduleDate'];
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
+    String formattedDate = format(dateTime);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.productData['productName']),
-        ),
-        body: Stack(
-          children: [
-            SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: PhotoView(
-                imageProvider: NetworkImage(widget.productData['imageUrl'][_imageIndex]),
+      appBar: AppBar(
+        title: Text(widget.productData['productName']),
+      ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: PhotoView(
+                  imageProvider:
+                      NetworkImage(widget.productData['imageUrl'][_imageIndex]),
+                ),
               ),
+              Positioned(
+                bottom: 0,
+                child: SizedBox(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget.productData['imageUrl'].length,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _imageIndex = index;
+                            });
+                          },
+                          child: SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: Image.network(
+                                widget.productData['imageUrl'][index]),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text("${widget.productData['productPrice']}"),
+          Text(
+            "${widget.productData['productName']}",
+            style: const TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 8),
+          ),
+          ExpansionTile(
+            title: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Product Description",
+                ),
+                Text(
+                  "View More",
+                ),
+              ],
             ),
-            Positioned(
-              bottom: 0,
-              child: SizedBox(
+            children: [Text(widget.productData['description'])],
+          ),
+          Text("The product will be shipping on $formattedDate"),
+          ExpansionTile(
+            title: const Text("Available Size"),
+            children: [
+              SizedBox(
                 height: 50,
-                width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: widget.productData['imageUrl'].length,
+                  itemCount: widget.productData['sizeList'].length,
                   itemBuilder: (context, index) {
-                    return Center(
-                      child: GestureDetector(
-                        onTap: (){
+                    return Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                        ),
+                        onPressed: () {
                           setState(() {
-                            _imageIndex = index;
+                            _selectedSize =
+                                widget.productData['sizeList'][index];
+                            //bgColor = Colors.yellow.shade900;
                           });
                         },
-                        child: SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: Image.network(widget.productData['imageUrl'][index]),
-                        ),
+                        child: Text(widget.productData['sizeList'][index]),
                       ),
                     );
                   },
                 ),
-              ),
+              )
+            ],
+          )
+        ],
+      ),
+      bottomSheet: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.yellow.shade900),
+        width: MediaQuery.of(context).size.width,
+        height: 50,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Add To Cart",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  letterSpacing: 8,
+                  color: Colors.white),
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

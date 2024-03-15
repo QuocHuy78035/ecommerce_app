@@ -2,22 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/buyers/views/detail_products/detail_product_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeProductScreen extends StatefulWidget {
-  final String categoryName;
+class MainProductScreen extends StatefulWidget {
 
-  const HomeProductScreen({super.key, required this.categoryName});
+  const MainProductScreen({super.key, });
 
   @override
-  State<HomeProductScreen> createState() => _HomeProductScreenState();
+  State<MainProductScreen> createState() => _MainProductScreenState();
 }
 
-class _HomeProductScreenState extends State<HomeProductScreen> {
+class _MainProductScreenState extends State<MainProductScreen> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
-        .collection('products')
-        .where('category', isEqualTo: widget.categoryName)
-        .snapshots();
+        .collection('products').snapshots();
 
     return StreamBuilder<QuerySnapshot>(
       stream: _productsStream,
