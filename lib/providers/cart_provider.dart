@@ -34,9 +34,9 @@ class CartProvider with ChangeNotifier {
       );
       notifyListeners();
     } else {
-      _cartItems.update(
+      _cartItems.putIfAbsent(
         productId,
-        (value) => CartAttrb(
+        () => CartAttrb(
           productName: productName,
           productId: productId,
           imageUrl: imageUrl,
