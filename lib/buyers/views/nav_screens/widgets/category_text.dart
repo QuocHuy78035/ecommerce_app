@@ -1,11 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class CategoryText extends StatelessWidget {
+class CategoryText extends StatefulWidget {
   const CategoryText({super.key});
 
   @override
+  State<CategoryText> createState() => _CategoryTextState();
+}
+
+class _CategoryTextState extends State<CategoryText> {
+  String _selectCategory = '';
+  @override
   Widget build(BuildContext context) {
-    final List<String> _categoryLabel = ['foods', 'vegetables', 'eggs', 'teas'];
+    final Stream<QuerySnapshot> _categoryStream =
+        FirebaseFirestore.instance.collection('categories').snapshots();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -15,43 +24,61 @@ class CategoryText extends StatelessWidget {
             "Category",
             style: TextStyle(fontSize: 19),
           ),
-          SizedBox(
-            height: 50,
-            child: Row(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _categoryLabel.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ActionChip(
-                          backgroundColor: Colors.yellow.shade900,
-                          onPressed: (){},
-                          label: Center(
-                            child: Text(
-                              _categoryLabel[index],
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
+          StreamBuilder<QuerySnapshot>(
+            stream: _categoryStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text("Loading");
+              }
+              return SizedBox(
+                height: 40,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          final cateData = snapshot.data?.docs[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
+                            child: ActionChip(
+                              backgroundColor: Colors.yellow.shade900,
+                              onPressed: () {
+                                setState(() {
+                                  _selectCategory = cateData?['categoryName'];
+                                });
+                                print(_selectCategory);
+                              },
+                              label: Center(
+                                child: Text(
+                                  cateData?['categoryName'],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                          );
+                        },
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.navigate_next,
+                      ),
+                    )
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.navigate_next,
-                  ),
-                )
-              ],
-            ),
-          )
+              );
+            },
+          ),
         ],
       ),
     );
