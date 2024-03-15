@@ -5,6 +5,7 @@ import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/attributes
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/general_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/image_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/shipping_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -66,7 +67,6 @@ class _VendorUploadScreenState extends State<VendorUploadScreen> {
           onPressed: () async {
             EasyLoading.show(status: "Uploading...");
             final productId = const Uuid().v4();
-            print("13 ${ _productProvider.productData['imageUrlList']}");
             await _fireStore.collection("products").doc(productId).set({
               'productId': productId,
               'productName': _productProvider.productData['productName'],
@@ -80,10 +80,10 @@ class _VendorUploadScreenState extends State<VendorUploadScreen> {
               "shippingCharge": _productProvider.productData['shippingCharge'],
               "brandName": _productProvider.productData['brandName'],
               "sizeList": _productProvider.productData['listSize'],
+              "vendorId" : FirebaseAuth.instance.currentUser?.uid
             }).whenComplete(
               () {
                 EasyLoading.dismiss();
-                print("123");
                 _productProvider.clearData();
                 Navigator.push(
                   context,

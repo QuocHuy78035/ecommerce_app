@@ -41,7 +41,10 @@ class _ImageScreenState extends State<ImageScreen> {
           shrinkWrap: true,
           itemCount: _image.length + 1,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, mainAxisSpacing: 8, crossAxisSpacing: 3 / 3),
+            crossAxisCount: 3,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 3 / 3,
+          ),
           itemBuilder: (context, index) {
             return index == 0
                 ? Center(
@@ -80,18 +83,13 @@ class _ImageScreenState extends State<ImageScreen> {
                       },
                     );
                   }
-                  print("image url $_imageUrl");
 
-                  productProvider.getFormData(
-                      imageUrlList: _imageUrl);
+                  productProvider.getFormData(imageUrlList: _imageUrl);
                   EasyLoading.dismiss();
                 },
                 child: const Text("Upload"),
               )
             : Container(),
-        ElevatedButton(onPressed: (){
-          print(productProvider.productData['imageUrlList']);
-        }, child: Text("Print Image"))
       ],
     );
   }

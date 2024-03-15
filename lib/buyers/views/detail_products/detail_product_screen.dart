@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/providers/cart_provider.dart';
+import 'package:ecomerce_app/utils/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
 
 class DetailProductScreen extends StatefulWidget {
   final dynamic productData;
@@ -24,9 +27,11 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final CartProvider cartProvider = Provider.of<CartProvider>(
+        context, listen: false);
     Timestamp timestamp = widget.productData['scheduleDate'];
     DateTime dateTime =
-        DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
+    DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
     String formattedDate = format(dateTime);
     return Scaffold(
       appBar: AppBar(
@@ -41,14 +46,17 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                 width: double.infinity,
                 child: PhotoView(
                   imageProvider:
-                      NetworkImage(widget.productData['imageUrl'][_imageIndex]),
+                  NetworkImage(widget.productData['imageUrl'][_imageIndex]),
                 ),
               ),
               Positioned(
                 bottom: 0,
                 child: SizedBox(
                   height: 50,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: widget.productData['imageUrl'].length,
@@ -115,8 +123,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                         onPressed: () {
                           setState(() {
                             _selectedSize =
-                                widget.productData['sizeList'][index];
-                            //bgColor = Colors.yellow.shade900;
+                            widget.productData['sizeList'][index];
                           });
                         },
                         child: Text(widget.productData['sizeList'][index]),
@@ -129,32 +136,57 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           )
         ],
       ),
-      bottomSheet: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.yellow.shade900),
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.white,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Add To Cart",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  letterSpacing: 8,
-                  color: Colors.white),
-            )
-          ],
+      bottomSheet: GestureDetector(
+        onTap: () {
+          if(_selectedSize == ""){
+            return showSnackBar(context, "Please Select Size");
+          }
+         else{
+            cartProvider.addProductToCart(
+              widget.productData['productName'],
+              widget.productData['productId'],
+              widget.productData['imageUrl'],
+              1,
+              widget.productData['productPrice'],
+              widget.productData['vendorId'],
+              _selectedSize,
+              widget.productData['quantity'],
+              widget.productData['scheduleDate'],
+
+            );
+            print('object');
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.yellow.shade900),
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
+          height: 50,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Add To Cart",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    letterSpacing: 8,
+                    color: Colors.white),
+              )
+            ],
+          ),
         ),
       ),
     );
