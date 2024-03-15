@@ -56,7 +56,6 @@ class _CategoryTextState extends State<CategoryText> {
                                 setState(() {
                                   _selectCategory = cateData?['categoryName'];
                                 });
-                                print(_selectCategory);
                               },
                               label: Center(
                                 child: Text(
