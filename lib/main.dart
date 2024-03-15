@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/buyers/views/buyer/main_screen.dart';
 import 'package:ecomerce_app/providers/product_provider.dart';
 import 'package:ecomerce_app/vendors/views/screens/main_vendor_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainVendorScreen(),
+      home: const MainCustomerScreen(),
       builder: EasyLoading.init(),
     );
   }
