@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/home_product.dart';
 import 'package:flutter/material.dart';
 
 class CategoryText extends StatefulWidget {
@@ -32,7 +33,9 @@ class _CategoryTextState extends State<CategoryText> {
                 return const Text('Something went wrong');
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text("Loading");
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
               return SizedBox(
                 height: 40,
@@ -79,6 +82,8 @@ class _CategoryTextState extends State<CategoryText> {
               );
             },
           ),
+          if(_selectCategory != "")
+            HomeProductScreen(categoryName: _selectCategory)
         ],
       ),
     );

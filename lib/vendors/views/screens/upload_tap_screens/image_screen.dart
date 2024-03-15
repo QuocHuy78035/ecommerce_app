@@ -21,7 +21,7 @@ class _ImageScreenState extends State<ImageScreen> {
   late List<String> _imageUrl = [];
 
   chooseImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) {
       print("No image pick");
     } else {
@@ -75,18 +75,23 @@ class _ImageScreenState extends State<ImageScreen> {
                         await ref.getDownloadURL().then((value) {
                           setState(() {
                             _imageUrl.add(value);
-                            productProvider.getFormData(
-                                imageUrlList: _imageUrl);
-                            EasyLoading.dismiss();
                           });
                         });
                       },
                     );
                   }
+                  print("image url $_imageUrl");
+
+                  productProvider.getFormData(
+                      imageUrlList: _imageUrl);
+                  EasyLoading.dismiss();
                 },
                 child: const Text("Upload"),
               )
-            : Container()
+            : Container(),
+        ElevatedButton(onPressed: (){
+          print(productProvider.productData['imageUrlList']);
+        }, child: Text("Print Image"))
       ],
     );
   }

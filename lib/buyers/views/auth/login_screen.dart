@@ -1,5 +1,5 @@
 import 'package:ecomerce_app/buyers/views/auth/register_screen.dart';
-import 'package:ecomerce_app/buyers/views/buyer/main_screen.dart';
+import 'package:ecomerce_app/buyers/views/main_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/show_snackbar.dart';
