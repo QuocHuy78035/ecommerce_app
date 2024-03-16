@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/buyers/views/auth/login_screen.dart';
 import 'package:ecomerce_app/buyers/views/main_screen.dart';
 import 'package:ecomerce_app/providers/cart_provider.dart';
 import 'package:ecomerce_app/providers/product_provider.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainCustomerScreen(),
+      home: const LoginScreen(),
       builder: EasyLoading.init(),
     );
   }
