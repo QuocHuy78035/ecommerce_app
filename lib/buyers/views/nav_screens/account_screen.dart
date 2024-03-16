@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/buyers/views/auth/login_screen.dart';
+import 'package:ecomerce_app/buyers/views/inner_screen/edit_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -19,13 +20,13 @@ class AccountScreen extends StatelessWidget {
           return const Text("Something went wrong");
         }
 
-        if (!snapshot.hasData && !snapshot.data!.exists) {
+        if (!snapshot.hasData) {
           return const Text("Document does not exist");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
+              snapshot.data?.data() as Map<String, dynamic>;
           print(data['fullName']);
           return Scaffold(
             appBar: AppBar(
@@ -62,6 +63,17 @@ class AccountScreen extends StatelessWidget {
                 ),
                 Text(data['fullName']),
                 Text(data['email']),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text("Edit Profile"),
+                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Divider(

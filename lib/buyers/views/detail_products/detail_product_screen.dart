@@ -142,7 +142,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       bottomSheet: GestureDetector(
         onTap: () {
           if (_selectedSize == "" && !cartProvider.getCartItem().containsKey(widget.productData['productId'])) {
-            return showSnackBar(context, "Please Select Size");
+            showSnackBar(context, "Please Select Size");
           } else {
             EasyLoading.show();
             cartProvider.getCartItem().containsKey(widget.productData['productId']) ? null : cartProvider.addProductToCart(
@@ -157,7 +157,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
               widget.productData['scheduleDate'],
             );
             EasyLoading.dismiss();
-            return showSnackBar(context, "You Add ${widget.productData['productName']} To Your Cart");
+            showSnackBar(context, "You Add ${widget.productData['productName']} To Your Cart");
           }
         },
         child: Container(
