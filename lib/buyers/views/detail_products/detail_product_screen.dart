@@ -27,11 +27,11 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final CartProvider cartProvider = Provider.of<CartProvider>(
-        context, listen: false);
+    final CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
     Timestamp timestamp = widget.productData['scheduleDate'];
     DateTime dateTime =
-    DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
+        DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
     String formattedDate = format(dateTime);
     return Scaffold(
       appBar: AppBar(
@@ -46,17 +46,14 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                 width: double.infinity,
                 child: PhotoView(
                   imageProvider:
-                  NetworkImage(widget.productData['imageUrl'][_imageIndex]),
+                      NetworkImage(widget.productData['imageUrl'][_imageIndex]),
                 ),
               ),
               Positioned(
                 bottom: 0,
                 child: SizedBox(
                   height: 50,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: widget.productData['imageUrl'].length,
@@ -119,11 +116,14 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                       padding: const EdgeInsets.all(8),
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                        ),
+                            backgroundColor: _selectedSize ==
+                                    widget.productData['sizeList'][index]
+                                ? Colors.yellow
+                                : null),
                         onPressed: () {
                           setState(() {
                             _selectedSize =
-                            widget.productData['sizeList'][index];
+                                widget.productData['sizeList'][index];
                           });
                         },
                         child: Text(widget.productData['sizeList'][index]),
@@ -138,10 +138,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       ),
       bottomSheet: GestureDetector(
         onTap: () {
-          if(_selectedSize == ""){
+          if (_selectedSize == "") {
             return showSnackBar(context, "Please Select Size");
-          }
-         else{
+          } else {
             cartProvider.addProductToCart(
               widget.productData['productName'],
               widget.productData['productId'],
@@ -152,9 +151,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
               _selectedSize,
               widget.productData['quantity'],
               widget.productData['scheduleDate'],
-
             );
-            print('object');
           }
         },
         child: Container(
@@ -162,10 +159,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.yellow.shade900),
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          width: MediaQuery.of(context).size.width,
           height: 50,
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,

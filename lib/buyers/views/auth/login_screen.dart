@@ -1,6 +1,7 @@
 import 'package:ecomerce_app/buyers/views/auth/register_screen.dart';
 import 'package:ecomerce_app/buyers/views/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../utils/show_snackbar.dart';
 import '../../controllers/auth_controller.dart';
@@ -24,7 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isLoading = true;
       });
+      EasyLoading.show();
       String res = await authController.loginUser(email, pass).whenComplete((){
+        EasyLoading.dismiss();
         setState(() {
           isLoading = false;
         });
