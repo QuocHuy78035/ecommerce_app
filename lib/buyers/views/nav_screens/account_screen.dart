@@ -110,7 +110,6 @@ class AccountScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("123");
                           EasyLoading.show();
                           firebaseAuth.signOut().whenComplete(() {
                             Navigator.push(
