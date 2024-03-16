@@ -1,28 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/buyers/views/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     CollectionReference users = FirebaseFirestore.instance.collection('buyers');
     return FutureBuilder<DocumentSnapshot>(
       future: users.doc(FirebaseAuth.instance.currentUser?.uid).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         }
 
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+        if (!snapshot.hasData && !snapshot.data!.exists) {
+          return const Text("Document does not exist");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          print(data['fullName']);
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.yellow.shade900,
@@ -64,11 +68,11 @@ class AccountScreen extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.settings),
                           SizedBox(
@@ -77,10 +81,10 @@ class AccountScreen extends StatelessWidget {
                           Text("Setting")
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.phone),
                           SizedBox(
@@ -89,10 +93,10 @@ class AccountScreen extends StatelessWidget {
                           Text("Phone")
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.shopping_cart),
                           SizedBox(
@@ -100,6 +104,33 @@ class AccountScreen extends StatelessWidget {
                           ),
                           Text("Cart")
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("123");
+                          EasyLoading.show();
+                          firebaseAuth.signOut().whenComplete(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                            EasyLoading.dismiss();
+                          });
+                        },
+                        child: const Row(
+                          children: [
+                            Icon(Icons.logout_outlined),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text("Log out")
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -109,13 +140,8 @@ class AccountScreen extends StatelessWidget {
           );
         }
 
-        return Text("loading");
+        return const Text("loading");
       },
     );
-
-
-
-
-
   }
 }

@@ -14,9 +14,12 @@ class CartScreen extends StatelessWidget {
           backgroundColor: Colors.yellow.shade900,
           title: const Text("Cart Screen"),
           actions: [
-            IconButton(onPressed: (){
-              cartProvider.removeAllItem();
-            }, icon: Icon(Icons.delete))
+            IconButton(
+              onPressed: () {
+                cartProvider.removeAllItem();
+              },
+              icon: Icon(Icons.delete),
+            )
           ],
         ),
         body: Consumer<CartProvider>(
@@ -59,7 +62,8 @@ class CartScreen extends StatelessWidget {
                                         onPressed: () {
                                           cartData.quantity == 1
                                               ? null
-                                              : cartProvider.decrement(cartData);
+                                              : cartProvider
+                                                  .decrement(cartData);
                                         },
                                         icon: const Icon(Icons.remove),
                                       ),
@@ -67,9 +71,10 @@ class CartScreen extends StatelessWidget {
                                       IconButton(
                                         onPressed: () {
                                           cartData.productQuantity ==
-                                              cartData.quantity
+                                                  cartData.quantity
                                               ? null
-                                              : cartProvider.increment(cartData);
+                                              : cartProvider
+                                                  .increment(cartData);
                                         },
                                         icon: const Icon(Icons.add),
                                       ),
@@ -79,9 +84,13 @@ class CartScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 40,
                                 ),
-                                IconButton(onPressed: (){
-                                  cartProvider.removeItem(cartData.productId);
-                                }, icon: const Icon(Icons.remove_shopping_cart))
+                                IconButton(
+                                    onPressed: () {
+                                      cartProvider
+                                          .removeItem(cartData.productId);
+                                    },
+                                    icon:
+                                        const Icon(Icons.remove_shopping_cart))
                               ],
                             )
                           ],

@@ -80,7 +80,8 @@ class _VendorUploadScreenState extends State<VendorUploadScreen> {
               "shippingCharge": _productProvider.productData['shippingCharge'],
               "brandName": _productProvider.productData['brandName'],
               "sizeList": _productProvider.productData['listSize'],
-              "vendorId" : FirebaseAuth.instance.currentUser?.uid
+              "vendorId" : FirebaseAuth.instance.currentUser?.uid,
+              "approved": false,
             }).whenComplete(
               () {
                 EasyLoading.dismiss();
