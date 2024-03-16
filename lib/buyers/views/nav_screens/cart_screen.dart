@@ -1,3 +1,4 @@
+import 'package:ecomerce_app/buyers/views/inner_screen/checkout_screen.dart';
 import 'package:ecomerce_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +82,7 @@ class CartScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 40,
                                 ),
                                 IconButton(
@@ -105,11 +106,27 @@ class CartScreen extends StatelessWidget {
         ),
         bottomSheet: Consumer<CartProvider>(
           builder: (BuildContext context, CartProvider value, Widget? child) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text("Checkout (${cartProvider.totalPrice})"),
+            return GestureDetector(
+              onTap: () {
+                cartProvider.totalPrice == 0.0 ? null : Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CheckoutScreen(),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: cartProvider.totalPrice == 0.0 ? Colors.grey :Colors.yellow.shade900
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                child: Center(
+                  child: Text("Checkout (${cartProvider.totalPrice})"),
+                ),
+              ),
             );
           },
         )

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/providers/cart_provider.dart';
 import 'package:ecomerce_app/utils/show_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
@@ -121,10 +122,12 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                                 ? Colors.yellow
                                 : null),
                         onPressed: () {
-                          setState(() {
-                            _selectedSize =
-                                widget.productData['sizeList'][index];
-                          });
+                          setState(
+                            () {
+                              _selectedSize =
+                                  widget.productData['sizeList'][index];
+                            },
+                          );
                         },
                         child: Text(widget.productData['sizeList'][index]),
                       ),
@@ -138,10 +141,11 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       ),
       bottomSheet: GestureDetector(
         onTap: () {
-          if (_selectedSize == "") {
+          if (_selectedSize == "" && !cartProvider.getCartItem().containsKey(widget.productData['productId'])) {
             return showSnackBar(context, "Please Select Size");
           } else {
-            cartProvider.addProductToCart(
+            EasyLoading.show();
+            cartProvider.getCartItem().containsKey(widget.productData['productId']) ? null : cartProvider.addProductToCart(
               widget.productData['productName'],
               widget.productData['productId'],
               widget.productData['imageUrl'],
@@ -152,26 +156,35 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
               widget.productData['quantity'],
               widget.productData['scheduleDate'],
             );
+            EasyLoading.dismiss();
+            return showSnackBar(context, "You Add ${widget.productData['productName']} To Your Cart");
           }
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.yellow.shade900),
+              color: cartProvider.getCartItem().containsKey(widget.productData['productId']) ? Colors.grey : Colors.yellow.shade900),
           width: MediaQuery.of(context).size.width,
           height: 50,
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.shopping_cart_outlined,
                 color: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              Text(
+              cartProvider.getCartItem().containsKey(widget.productData['productId']) ? const Text(
+                "In Cart",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    letterSpacing: 8,
+                    color: Colors.white),
+              ) : const Text(
                 "Add To Cart",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
