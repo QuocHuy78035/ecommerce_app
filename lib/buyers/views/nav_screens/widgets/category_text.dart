@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/category_screen.dart';
 import 'package:ecomerce_app/buyers/views/nav_screens/widgets/home_product.dart';
 import 'package:ecomerce_app/buyers/views/nav_screens/widgets/main_products.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class CategoryText extends StatefulWidget {
 
 class _CategoryTextState extends State<CategoryText> {
   String _selectCategory = '';
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _categoryStream =
@@ -49,7 +51,8 @@ class _CategoryTextState extends State<CategoryText> {
                         itemBuilder: (context, index) {
                           final cateData = snapshot.data?.docs[index];
                           return Padding(
-                            padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 8, right: 8),
                             child: ActionChip(
                               backgroundColor: Colors.yellow.shade900,
                               onPressed: () {
@@ -72,7 +75,14 @@ class _CategoryTextState extends State<CategoryText> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const  CategoryScreen(),
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.navigate_next,
                       ),
@@ -82,9 +92,8 @@ class _CategoryTextState extends State<CategoryText> {
               );
             },
           ),
-          if(_selectCategory == "")
-            const MainProductScreen(),
-          if(_selectCategory != "")
+          if (_selectCategory == "") const MainProductScreen(),
+          if (_selectCategory != "")
             HomeProductScreen(categoryName: _selectCategory)
         ],
       ),
