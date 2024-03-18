@@ -1,5 +1,6 @@
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/edit_product_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_earning_screen.dart';
+import 'package:ecomerce_app/vendors/views/screens/vendor_order_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,7 +20,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
     const VendorEarningScreen(),
     const VendorUploadScreen(),
     const EditProductScreen(),
-    Text("ORDERS"),
+    const VendorOrderScreen(),
     Text("LOGOUT"),
   ];
 

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/buyers/views/auth/login_screen.dart';
 import 'package:ecomerce_app/buyers/views/inner_screen/edit_profile_screen.dart';
+import 'package:ecomerce_app/buyers/views/nav_screens/widgets/order_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -68,7 +70,9 @@ class AccountScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfileScreen(userData: data,),
+                        builder: (context) => EditProfileScreen(
+                          userData: data,
+                        ),
                       ),
                     );
                   },
@@ -108,14 +112,24 @@ class AccountScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Row(
-                        children: [
-                          Icon(Icons.shopping_cart),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text("Cart")
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const OrderScreen(),
+                            ),
+                          );
+                        },
+                        child: const Row(
+                          children: [
+                            Icon(Icons.shopping_cart),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text("Cart")
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
