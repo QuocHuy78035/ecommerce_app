@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/vendors/views/screens/vendor_inner_screens/withdrawal_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VendorEarningScreen extends StatefulWidget {
@@ -94,6 +96,28 @@ class _VendorEarningScreenState extends State<VendorEarningScreen> {
                               const Text("TOTAL ORDERS"),
                               Text("${snapshot.data?.docs.length}")
                             ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const WithDrawalScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.yellow.shade900,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: Center(child: Text("WithDrawal")),
                           ),
                         )
                       ],
