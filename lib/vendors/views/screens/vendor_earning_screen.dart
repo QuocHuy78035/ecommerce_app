@@ -57,7 +57,7 @@ class _VendorEarningScreenState extends State<VendorEarningScreen> {
                 }
                 double totalOrders = 0.0;
                 for(var order in snapshot.data!.docs){
-                  totalOrders += order[''];
+                  totalOrders += order['productPrice'];
                 }
                 return Center(
                   child: Column(
@@ -68,6 +68,29 @@ class _VendorEarningScreenState extends State<VendorEarningScreen> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.yellow.shade900
+                        ),
+                        child: Column(
+                          children: [
+                            const Text("TOTAL EARNINGS"),
+                            Text("$totalOrders")
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: 150,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.yellow.shade900
+                        ),
+                        child: Column(
+                          children: [
+                            const Text("TOTAL ORDERS"),
+                            Text("${snapshot.data?.docs.length}")
+                          ],
                         ),
                       )
                     ],
