@@ -1,8 +1,7 @@
-
 import 'package:ecomerce_app/vendors/views/auth/widgets/textfield_custom.dart';
 import 'package:ecomerce_app/vendors/views/auth/widgets/vendor_register_account_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../../utils/show_snackbar.dart';
 import '../../../controllers/vendor_controller.dart';
 import '../../screens/landing_screen.dart';
@@ -19,15 +18,23 @@ class VendorSignIn extends StatelessWidget {
 
     signInVendor(String email, String pass) async {
       //if (key.currentState?.validate() != null) {
-        String res = await controller.vendorLogin(email, pass);
-        if (res == "Success") {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LandingScreen()));
-          return showSnackBar(context, "Login Success");
-        } else {
-          return showSnackBar(context, "Login Fail");
-        }
+      EasyLoading.show(status: "Please wait");
+      String res = await controller.vendorLogin(email, pass);
+      if (res == "Success") {
+        EasyLoading.dismiss();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LandingScreen(),
+          ),
+        );
+        return showSnackBar(context, "Login Success");
+      } else {
+        return showSnackBar(context, "Login Fail");
+      }
       //}
     }
+
     return Scaffold(
       body: Form(
         //key: key,
@@ -73,7 +80,7 @@ class VendorSignIn extends StatelessWidget {
               ),
               TextFieldCustom(
                 validator: (value) =>
-                value!.isEmpty ? "Field Cannot Empty" : null,
+                    value!.isEmpty ? "Field Cannot Empty" : null,
                 hintText: 'Email',
                 onChanged: (value) {
                   email = value;
@@ -85,7 +92,7 @@ class VendorSignIn extends StatelessWidget {
               TextFieldCustom(
                 isPass: true,
                 validator: (value) =>
-                value!.isEmpty ? "Field Cannot Empty" : null,
+                    value!.isEmpty ? "Field Cannot Empty" : null,
                 hintText: 'Password',
                 onChanged: (value) {
                   pass = value;
