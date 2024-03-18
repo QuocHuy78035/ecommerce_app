@@ -7,7 +7,7 @@ class CartAttrb with ChangeNotifier {
   final List imageUrl;
   int quantity;
   final int productQuantity;
-  final double price;
+  final int price;
   final String vendorId;
   final String productSize;
   final Timestamp scheduleDate;

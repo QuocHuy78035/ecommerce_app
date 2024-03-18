@@ -22,7 +22,7 @@ class CartProvider with ChangeNotifier {
       String productId,
       List imageUrl,
       int quantity,
-      double price,
+      int price,
       String vendorId,
       String productSize,
       int productQuantity,
@@ -69,7 +69,6 @@ class CartProvider with ChangeNotifier {
 
   void decrement(CartAttrb cartAttrb){
     cartAttrb.decrement();
-    print("decrement");
     notifyListeners();
   }
 

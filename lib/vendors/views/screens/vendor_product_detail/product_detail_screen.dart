@@ -33,6 +33,8 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
         widget.productData['productPrice'].toString();
     _descriptionController.text = widget.productData['productName'];
     _categoryController.text = widget.productData['category'];
+    quantity = int.parse(_quantityController.text);
+    price = double.parse(_productPriceController.text);
   }
 
   @override
@@ -108,8 +110,8 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
           await _firestore.collection("products").doc(widget.productData['productId']).update({
             'productName' : _productNameController.text,
             'brandName' : _brandNameController.text,
-            'quantity' : _quantityController.text.toString(),
-            'productPrice' : _productPriceController.text.toString(),
+            'quantity' : quantity,
+            'productPrice' : price,
             'description' : _descriptionController.text,
             'category' : _categoryController.text,
           }).whenComplete(() => EasyLoading.dismiss());

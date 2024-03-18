@@ -1,4 +1,5 @@
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/edit_product_screen.dart';
+import 'package:ecomerce_app/vendors/views/screens/vendor_earning_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,7 +16,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
   int _pageIndex = 0;
 
   final List<Widget> _pages = [
-    Text("EARNINGS"),
+    const VendorEarningScreen(),
     const VendorUploadScreen(),
     const EditProductScreen(),
     Text("ORDERS"),
