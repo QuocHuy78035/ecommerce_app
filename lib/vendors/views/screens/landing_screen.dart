@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomerce_app/vendors/views/auth/widgets/vendor_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -71,6 +72,12 @@ class LandingScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         FirebaseAuth.instance.signOut();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const VendorSignIn(),
+                          ),
+                        );
                       },
                       child: const Text("Log out"),
                     ),

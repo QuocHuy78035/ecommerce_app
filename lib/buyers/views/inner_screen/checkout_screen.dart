@@ -84,7 +84,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const EditProfileScreen(),
+                          builder: (context) => EditProfileScreen(userData: data,),
                         ),
                       );
                     },

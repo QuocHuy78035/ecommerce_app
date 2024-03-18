@@ -16,7 +16,7 @@ class _HomeProductScreenState extends State<HomeProductScreen> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
         .collection('products')
-        .where('category', isEqualTo: widget.categoryName)
+        .where('category', isEqualTo: widget.categoryName).where('approved', isEqualTo: true)
         .snapshots();
 
     return StreamBuilder<QuerySnapshot>(
