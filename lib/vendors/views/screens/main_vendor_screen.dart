@@ -1,6 +1,8 @@
+import 'package:ecomerce_app/buyers/views/nav_screens/search_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/upload_tap_screens/edit_product_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_earning_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_order_screen.dart';
+import 'package:ecomerce_app/vendors/views/screens/vendor_store_screen.dart';
 import 'package:ecomerce_app/vendors/views/screens/vendor_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,8 +22,9 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
     const VendorEarningScreen(),
     const VendorUploadScreen(),
     const EditProductScreen(),
+    const VendorStoreScreen(),
     const VendorOrderScreen(),
-    Text("LOGOUT"),
+    const Text("LOGOUT"),
   ];
 
   @override
@@ -49,6 +52,10 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
           const BottomNavigationBarItem(
             icon: Icon(Icons.edit),
             label: "EDIT",
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: "STORE",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset("assets/icons/cart.svg"),
