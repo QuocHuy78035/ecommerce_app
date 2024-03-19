@@ -20,6 +20,8 @@ class VendorSignIn extends StatelessWidget {
       //if (key.currentState?.validate() != null) {
       EasyLoading.show(status: "Please wait");
       String res = await controller.vendorLogin(email, pass);
+      print("123 $res");
+
       if (res == "Success") {
         EasyLoading.dismiss();
         Navigator.push(

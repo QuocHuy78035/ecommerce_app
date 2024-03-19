@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -15,8 +16,10 @@ class _VendorOrderScreenState extends State<VendorOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _ordersStream =
-    FirebaseFirestore.instance.collection('orders').snapshots();
+    final Stream<QuerySnapshot> _ordersStream = FirebaseFirestore.instance
+        .collection('orders')
+        .where('vendor', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow.shade900,
@@ -54,9 +57,12 @@ class _VendorOrderScreenState extends State<VendorOrderScreen> {
                   //dismissible: DismissiblePane(onDismissed: () {}),
                   children: [
                     SlidableAction(
-                      onPressed: (context) async{
-                        await _firestore.collection("orders").doc(data['orderId']).update({
-                          'accepted' : false,
+                      onPressed: (context) async {
+                        await _firestore
+                            .collection("orders")
+                            .doc(data['orderId'])
+                            .update({
+                          'accepted': false,
                         });
                       },
                       backgroundColor: const Color(0xFFFE4A49),
@@ -65,9 +71,12 @@ class _VendorOrderScreenState extends State<VendorOrderScreen> {
                       label: 'Reject',
                     ),
                     SlidableAction(
-                      onPressed: (context) async{
-                        await _firestore.collection("orders").doc(data['orderId']).update({
-                          'accepted' : true,
+                      onPressed: (context) async {
+                        await _firestore
+                            .collection("orders")
+                            .doc(data['orderId'])
+                            .update({
+                          'accepted': true,
                         });
                       },
                       backgroundColor: const Color(0xFF21B7CA),
@@ -77,7 +86,6 @@ class _VendorOrderScreenState extends State<VendorOrderScreen> {
                     ),
                   ],
                 ),
-                
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -117,14 +125,14 @@ class _VendorOrderScreenState extends State<VendorOrderScreen> {
                               ),
                               data['accepted'] == true
                                   ? Row(
-                                children: [
-                                  const Text("Schedule delivery date"),
-                                  const SizedBox(
-                                    width: 50,
-                                  ),
-                                  Text(dtDeli)
-                                ],
-                              )
+                                      children: [
+                                        const Text("Schedule delivery date"),
+                                        const SizedBox(
+                                          width: 50,
+                                        ),
+                                        Text(dtDeli)
+                                      ],
+                                    )
                                   : Container()
                             ],
                           ),
