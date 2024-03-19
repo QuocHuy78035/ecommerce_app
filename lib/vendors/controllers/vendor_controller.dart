@@ -14,9 +14,11 @@ class VendorController {
 
   Future<String> vendorLogin(String email, String pass) async {
     try {
-      final credential =
-      await _auth.signInWithEmailAndPassword(email: email, password: pass);
+      final credential = await _auth.signInWithEmailAndPassword(email: email, password: pass);
       res = "Success";
+    }on FirebaseAuthException catch (e) {
+      print("123 $e");
+
     } catch (e) {
       res = e.toString();
     }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomerce_app/vendors/views/screens/store_screens/detail_store_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VendorStoreScreen extends StatefulWidget {
@@ -12,8 +13,10 @@ class VendorStoreScreen extends StatefulWidget {
 class _VendorStoreScreenState extends State<VendorStoreScreen> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _storesStream =
-        FirebaseFirestore.instance.collection('vendors').snapshots();
+    final Stream<QuerySnapshot> _storesStream = FirebaseFirestore.instance
+        .collection('vendors')
+        .where('vendorId', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+        .snapshots();
 
     return StreamBuilder<QuerySnapshot>(
       stream: _storesStream,
