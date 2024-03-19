@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
+import 'buyers/views/main_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
